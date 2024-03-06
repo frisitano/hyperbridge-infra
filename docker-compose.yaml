@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  tesseract:
+    image: polytopelabs/tesseract:latest
+    network_mode: host
+    volumes:
+      - /home/f/tesseract:/home/root
+    command: --config=/home/root/config.toml --db=/home/root/dev.db
+    restart: unless-stopped
+
+  hyperbridge:
+    image: polytopelabs/hyperbridge:latest
+    network_mode: host
+    volumes:
+      - /home/f/hyperbridge:/root/.local/share/hyperbridge/
+    command: --chain=gargantua --pruning=archive -- --sync=fast-unsafe
+    restart: unless-stopped
